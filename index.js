@@ -11,7 +11,6 @@ var server = http.createServer(app);
 
 // Serve static files from the current directory
 app.use(express.static('.'));
-
 server.listen(port);
 
 console.log('🚀 WebRTC Signaling Server is running!');
