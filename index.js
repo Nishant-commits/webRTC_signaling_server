@@ -11,6 +11,11 @@ var app = http.createServer(function(req, res) {
   fileServer.serve(req, res);
 }).listen(port);
 
+console.log('🚀 WebRTC Signaling Server is running!');
+console.log('📍 Server URL: http://localhost:' + port);
+console.log('🌐 Open your browser and navigate to: http://localhost:' + port);
+console.log('⚡ Socket.IO server ready for WebRTC connections');
+
 var io = socketIO.listen(app);
 io.sockets.on('connection', function(socket) {
 
