@@ -1,22 +1,25 @@
 'use strict';
 
 var os = require('os');
-var nodeStatic = require('node-static');
+var express = require('express');
 var http = require('http');
 var socketIO = require('socket.io');
 const port = process.env.PORT || 3030;
 
-var fileServer = new(nodeStatic.Server)();
-var app = http.createServer(function(req, res) {
-  fileServer.serve(req, res);
-}).listen(port);
+var app = express();
+var server = http.createServer(app);
+
+// Serve static files from the current directory
+app.use(express.static('.'));
+
+server.listen(port);
 
 console.log('🚀 WebRTC Signaling Server is running!');
 console.log('📍 Server URL: http://localhost:' + port);
 console.log('🌐 Open your browser and navigate to: http://localhost:' + port);
 console.log('⚡ Socket.IO server ready for WebRTC connections');
 
-var io = socketIO.listen(app);
+var io = new socketIO.Server(server);
 io.sockets.on('connection', function(socket) {
 
   // convenience function to log server messages on the client
